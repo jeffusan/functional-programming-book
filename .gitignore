@@ -2,4 +2,8 @@
 ### Scala template
 *.class
 *.log
-
+target/
+.ensime_cache/
+.ensime
+project/target/
+project/project/
