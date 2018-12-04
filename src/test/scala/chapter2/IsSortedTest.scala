@@ -19,9 +19,7 @@ class IsSortedTest extends PropSpec  with Sorter  with PropertyChecks  with Matc
 
   property("check for values of int") {
     forAll { a: Array[Int] =>
-      val base = a.sortWith(intSorted)
-      val check = isSorted(a, intSorted)
-      (base.deep == a.deep) shouldBe check
+      (a.sortWith(intSorted).deep == a.deep) shouldBe isSorted(a, intSorted)
     }
   }
 }
