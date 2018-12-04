@@ -6,9 +6,7 @@ trait Sorter {
 
   def intSorted(a: Int, b: Int): Boolean = ( a <= b )
 
-  def isSorted[A](as: Array[A], ordered: (A, A) => Boolean): Boolean = as.size match {
-    case one if one <= 1 => true
-    case _ =>
+  def isSorted[A](as: Array[A], ordered: (A, A) => Boolean): Boolean = {
       val b = as.toSeq.sliding(2) // get pairwise
       val c = b.map( pair => ordered(pair.head, pair.last)) // apply predicate
       c.foldLeft(true)(_ && _) // fold over results
