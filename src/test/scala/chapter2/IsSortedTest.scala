@@ -1,6 +1,7 @@
 package chapter2
 
 import org.scalatest._
+import org.scalatest.prop.PropertyChecks
 
 trait Sorter {
 
@@ -14,17 +15,13 @@ trait Sorter {
 
 }
 
-class IsSortedTest extends FlatSpec with Matchers  with Sorter {
+class IsSortedTest extends PropSpec  with Sorter  with PropertyChecks  with Matchers {
 
-  "a sorted array" should "be detected" in {
-    isSorted(Array[Int](1,2,3,4), intSorted) shouldBe true
-  }
-
-  "an unsorted array" should "be detected" in {
-    isSorted(Array[Int](2,4,1,65), intSorted) shouldBe false
-  }
-
-  "a single element" should "be considered sorted" in {
-    isSorted(Array[Int](1), intSorted) shouldBe true
+  property("check for values of int") {
+    forAll { a: Array[Int] =>
+      val base = a.sortWith(intSorted)
+      val check = isSorted(a, intSorted)
+      (base.deep == a.deep) shouldBe check
+    }
   }
 }
